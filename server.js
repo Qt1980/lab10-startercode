@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const weather = require('./modules/weather.js');
 const app = express();
-
+//DEBUGGER MUGGER
 app.get('/weather', weatherHandler);
 
 function weatherHandler(request, response) {
