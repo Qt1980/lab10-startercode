@@ -1,6 +1,7 @@
 'use strict';
 
 let cache = require('./cache.js');
+const superagent = require('superagent'); //added this line to import superagent
 
 module.exports = getWeather;
 
@@ -8,10 +9,10 @@ function getWeather(latitude, longitude) {
   const key = 'weather-' + latitude + longitude;
   const url = 'http://api.weatherbit.io/v2.0/forecast/daily';
   const queryParams = {
-    key: WEATHER_API_KEY,
+    key: process.env.WEATHER_API_KEY, //Added process.env
     lang: 'en',
-    lat: lat,
-    lon: lon,
+    lat: latitude, //lat needed to be changed to latitude
+    lon: longitude, //lon needed to be changed to longitude
     days: 5,
   };
 
@@ -21,10 +22,9 @@ function getWeather(latitude, longitude) {
     console.log('Cache miss');
     cache[key] = {};
     cache[key].timestamp = Date.now();
-    cache[key].data = superagent.get(url)
-    .then(response => parseWeather(response.body));
+    cache[key].data = superagent.get(url).query(queryParams)//added .query(queryParams)
+      .then(response => parseWeather(response.body));
   }
-  
   return cache[key].data;
 }
 
