@@ -8,10 +8,14 @@ const cors = require('cors');
 
 const weather = require('./modules/weather.js');
 const app = express();
+<<<<<<< HEAD
 
 //The line of code below is is needed to bring in line 7.
 app.use(cors());
 
+=======
+//DEBUGGER MUGGER
+>>>>>>> 7ac6e668850499577106d9183718a9d9507ba99b
 app.get('/weather', weatherHandler);
 
 function weatherHandler(request, response) {
